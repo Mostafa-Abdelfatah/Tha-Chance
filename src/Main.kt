@@ -1,28 +1,25 @@
 fun main() {
-    var arr = IntArray(9)
-    arr[0]++
-    arr.forEach { i -> println(i) }
-    println('1' + 8)
-    val invalidSudoku4: List<List<Char>> = listOf(
-        listOf('1','4','3','4'),
-        listOf('3','4','1','2'),
-        listOf('2','1','4','3'),
-        listOf('4','3','2','1')
-    )
-    println(checkSubgrid(invalidSudoku4))
 
-    val board = listOf(
-        listOf('1','2','3','4'),
-        listOf('3','4','1','2'),
-        listOf('2','1','4','3'),
-        listOf('4','3','2','1')
-    )
-    println(checkRow(board))
 
 }
 
 fun isValidIPV4(str: String) :Boolean {
-    return false
+    val parts = str.split(".")
+    if (parts.size != 4) return false
+    for (part in parts) {
+        if (part.isEmpty() || part.any { !it.isDigit() })
+            return false  // Each part should be num and not empty
+
+        val num = part.toIntOrNull() ?: return false // if it is a char of double
+
+        if (num !in 0..255) //out od range
+            return false
+
+        if (part.length > 1 && part[0] == '0')
+            return false  // leading zeros
+    }
+
+    return true
 }
 fun isSudokuValid(arr: List<List<Char>>) :Boolean {
 
